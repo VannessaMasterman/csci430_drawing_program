@@ -77,5 +77,17 @@ yr = y2 + (x2-x1)
 2. Completed code. In a seperate `Project3` folder in your CourseFiles folder. All code should be compiled and tested
 
 
+# Solutions Used
 
+## Line Drawing Preview
 
+1. Created a private class under `LineButton.MouseHandler` called `PreviewLineCommand` which is really an empty child class used for tagging.
+2. Edited the `UndoManager` to include a method called `getLastCommand` which returns the most recent command processed and throws an `EmptyStackException`
+3. In `LineButton.actionPerformed` added a line to call `drawingPanel.addMouseMotionListener(mouseHandler);` which allows the mouse handler to recieve mouse motion events (Without this the `MouseHandler.mouseMoved` method is never called)
+4. Added `MouseHandler.mouseMoved(MouseEvent)` method to take in motion commands.
+5. Added a member variable to `MouseHandler` called `preview` of type `PreviewLineCommand`, initialized to `null`
+6. Initialized `preview` alongside `lineCommand` to use the same event position in `mouseClicked`
+7. Set `preview` to be null when the `lineCommand` is finalized
+8. In `mouseMoved` check if `preview` is non-null, then try to get the last command from the undoManager. If it is type `PreviewLineCommand` then call `undoManager.undo()`.
+    * Set the `preview` line point to be the event point as well as the `lineCommand` point. Have the undoManager begin and end the preview command.
+9. Edit the `LineCommand` class so that the `pointCount` variable isn't incremented in the `if` branch but rather is assigned constant values.

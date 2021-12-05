@@ -1,3 +1,4 @@
+import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class UndoManager {
@@ -5,6 +6,7 @@ public class UndoManager {
   private Stack<Command> history;
   private Stack<Command> redoStack;
   private Command currentCommand;
+
   public UndoManager() {
     history = new Stack<Command>();
     redoStack = new Stack<Command>();
@@ -51,5 +53,8 @@ public class UndoManager {
         history.push(command);
       }
     }
+  }
+  public Command getLastCommand() throws EmptyStackException{
+    return history.peek();
   }
 }
