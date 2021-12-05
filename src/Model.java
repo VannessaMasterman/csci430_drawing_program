@@ -1,27 +1,33 @@
-import java.text.*;
-import java.io.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.lang.*;
-import javax.swing.*;
-import java.util.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Enumeration;
+import java.util.Vector;
+
 public class Model {
-  private Vector itemList;
-  private Vector selectedList;
+
+  private Vector<Item> itemList;
+  private Vector<Item> selectedList;
   //  list of "currently selected" items
   private static UIContext uiContext;
   private static View view;
+
   public Model() {
-    itemList = new Vector();
-    selectedList = new Vector();
+    itemList = new Vector<Item>();
+    selectedList = new Vector<Item>();
   }
+  
   public static void setUI(UIContext uiContext) {
     Model.uiContext = uiContext;
     Item.setUIContext(uiContext);
   }
+  
   public static void setView(View view) {
     Model.view = view;
   }
+  
   public void markSelected(Item item) {
 // marks an item as selected by moving it to the
 // selceted list.
@@ -31,6 +37,7 @@ public class Model {
       view.refresh();
     }
   }
+  
   public void unSelect(Item item) {
     if (selectedList.contains(item)) {
       selectedList.remove(item);
@@ -43,30 +50,37 @@ public class Model {
     selectedList.removeAllElements();
     view.refresh();
   }
+
   public void addItem(Item item) {
     itemList.add(item);
     view.refresh();
   }
+  
   public void removeItem(Item item) {
     itemList.remove(item);
     view.refresh();
   }
-  public Enumeration getItems() {
+  
+  public Enumeration<Item> getItems() {
     return itemList.elements();
   }
+  
   public void setChanged() {
     view.refresh();
   }
-  public Enumeration getSelectedItems() {
+  
+  public Enumeration<Item> getSelectedItems() {
     return selectedList.elements();
   }
   // other fields, methods and classes
+  
   public void save(String fileName) {
     try {
       FileOutputStream file = new FileOutputStream(fileName);
       ObjectOutputStream output = new ObjectOutputStream(file);
       output.writeObject(itemList);
       output.writeObject(selectedList);
+      output.close();
     } catch(IOException ioe) {
       ioe.printStackTrace();
     }
@@ -76,10 +90,11 @@ public class Model {
     try {
       FileInputStream file = new FileInputStream(fileName);
       ObjectInputStream input = new ObjectInputStream(file);
-      itemList = (Vector) input.readObject();
-      selectedList = (Vector) input.readObject();
+      itemList = (Vector<Item>) input.readObject();
+      selectedList = (Vector<Item>) input.readObject();
       Item.setUIContext(uiContext);
       view.refresh();
+      input.close();
     } catch(IOException ioe) {
       ioe.printStackTrace();
     } catch(ClassNotFoundException cnfe) {
