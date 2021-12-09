@@ -7,4 +7,6 @@ public interface UIContext {
 
   public abstract void drawLabel(Label label);
 
+  public abstract void drawLineSegments(Point[] points, boolean closed);
+
 }

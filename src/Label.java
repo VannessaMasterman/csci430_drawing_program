@@ -25,4 +25,9 @@ public class Label extends Item {
   public Point getStartingPoint() {
     return startingPoint;
   }
+
+  @Override
+  public Point[] getPoints() {
+    return new Point[]{startingPoint};
+  }
 }

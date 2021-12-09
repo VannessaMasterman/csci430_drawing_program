@@ -35,5 +35,10 @@ public class Line extends Item {
   public String toString() {
     return "Line  from " + point1 + " to " + point2;
   }
+
+  @Override
+  public Point[] getPoints() {
+    return new Point[]{point1, point2};
+  }
 }
 

@@ -27,6 +27,9 @@ class View extends JFrame {
   private JButton openButton;
   private JButton undoButton;
   private JButton redoButton;
+  private JButton triangleButton;
+  private JButton rotateLeftButton;
+  private JButton rotateRightButton;
   private static UndoManager undoManager;
   private String fileName;
   // other buttons to be added as needed;
@@ -124,9 +127,15 @@ class View extends JFrame {
     openButton= new OpenButton(undoManager, this);
     undoButton = new UndoButton(undoManager);
     redoButton = new RedoButton(undoManager);
+    triangleButton = new TriangleButton(undoManager, this, drawingPanel);
+    rotateLeftButton = new RotateButton(undoManager, this, RotateCommand.Direction.LEFT);
+    rotateRightButton = new RotateButton(undoManager, this, RotateCommand.Direction.RIGHT);
     buttonPanel.add(lineButton);
+    buttonPanel.add(triangleButton);
     buttonPanel.add(labelButton);
     buttonPanel.add(selectButton);
+    buttonPanel.add(rotateLeftButton);
+    buttonPanel.add(rotateRightButton);
     buttonPanel.add(deleteButton);
     buttonPanel.add(saveButton);
     buttonPanel.add(openButton);

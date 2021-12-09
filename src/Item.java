@@ -17,7 +17,10 @@ public abstract class Item implements Serializable {
     return ((double) (Math.sqrt(xDifference * xDifference + yDifference * yDifference)));
   }
   
-  public  void render() {
+  public void render() {
     //uiContext.draw(this);
   }
+
+  public abstract Point[] getPoints();
+  
 }

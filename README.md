@@ -91,3 +91,25 @@ yr = y2 + (x2-x1)
 8. In `mouseMoved` check if `preview` is non-null, then try to get the last command from the undoManager. If it is type `PreviewLineCommand` then call `undoManager.undo()`.
     * Set the `preview` line point to be the event point as well as the `lineCommand` point. Have the undoManager begin and end the preview command.
 9. Edit the `LineCommand` class so that the `pointCount` variable isn't incremented in the `if` branch but rather is assigned constant values.
+
+## Triangle Drawing
+
+1. Essentially copied the Line drawing system.
+2. Added a method to `UIContext` called `drawLineSegments(Point[], boolean)` which draws connected line segments, with a boolean flag to close the loop or not. This method will skip any `Point`s which are null and still connect the rest. This method allows for the drawing of n-gons as well as several connected line segments. The method allows for this system to easily be expanded on with more drawing options.
+
+## Rotating Objects
+
+1. Modified the `Item` class to get a list of Points the object holds.
+2. Created a `RotateCommand` which gets the selected items, the gets the list of points from the object, then applies the rotation on each individual point, rotating about the center of all points. The `RotateCommand` class has a `Direction` enum for determining which direction (`LEFT` or `RIGHT`) should be applied. The undo of the command simply flips the direction.
+3. Created the `RotateButton` which applies the `RotateCommand` with a defined `Direction`
+4. Modified the `View` to include two buttons called "Rotate Left" and "Rotate Right" depending on which direction was assigned in the constructor.
+
+# Review
+
+## SOLID
+
+The base code provided was very well constructed but many elements did fail the Open-Close principle. Several core classes needed to be modified to create necessary processes. Hopefully the modifications I made will enable future extensions without modifying the actual implementation. Possible extensions could include n-gon drawing and vertex modifying
+
+## MVC
+
+The MVC architecture is very useful for applications of this sort. The ability to create an Undo/Redo system is also very appealing. I especially appreciate how the model can be kept in a permanently serializable state so saving the state of the program is trivial. Learning how to construct software using this architecture from the ground up is probably my next step in learning this architecture.  
