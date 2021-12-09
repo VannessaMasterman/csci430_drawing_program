@@ -113,3 +113,7 @@ The base code provided was very well constructed but many elements did fail the 
 ## MVC
 
 The MVC architecture is very useful for applications of this sort. The ability to create an Undo/Redo system is also very appealing. I especially appreciate how the model can be kept in a permanently serializable state so saving the state of the program is trivial. Learning how to construct software using this architecture from the ground up is probably my next step in learning this architecture.  
+
+## Lamentations
+
+In the `Model` class, specifically `Model.retrieve`, there are two Unchecked Cast warnings which I am unable to resolve. I don't know whether the `Vector<?>` is to blame or simply using a collection is the problem. Or possibly something I don't know that I don't know about Java. The volume of `Vector` and `Enumeration` instances in this program were immense. I am unfamiliar with `Vector` and how it differs from a `List` so it's hard to tell which is the better option for this program.
